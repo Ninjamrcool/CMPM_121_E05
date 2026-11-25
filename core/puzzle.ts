@@ -90,12 +90,16 @@ export function parsePuzzle(name: string, rows: readonly string[]): Puzzle {
  */
 export function move(puzzle: Puzzle, direction: Direction): Puzzle {
   const target = nextPosition(puzzle.player, direction);
+
   if (isWall(puzzle.layout, target)) return puzzle;
+
   if (!hasCrate(puzzle, target)) {
     return { ...puzzle, player: target, moves: puzzle.moves + 1 };
   }
+
   const beyond = nextPosition(target, direction);
   if (isWall(puzzle.layout, beyond) || hasCrate(puzzle, beyond)) return puzzle;
+
   return {
     ...puzzle,
     player: target,
